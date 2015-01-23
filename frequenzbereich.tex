@@ -43,6 +43,16 @@ Die inverse diskrete Fourier Transformation (IDFT) ist gegeben durch:
 \end{center}
 
 %===============================================================================
+\subsection{Intuitiv}
+\[ X[k]=\underbrace{\sum_{n=0}^{N-1}x[n]\cos(2\pi n\frac{k}{N})}_{\Re\{X[k]\}}
+	+ \im \cdot \underbrace{\sum_{n=0}^{N-1}x[n](-1)\sin(2\pi n \frac{k}{N})}_
+	{\Im\{X[k]\}} \]
+
+\begin{center}
+	\includegraphics[scale=.7]{./images/dft_intuitiv}
+\end{center}
+
+%===============================================================================
 \section{Eingenschaften der DFT}
 \textbf{Periodizität}\\
 Das Spektrum der DFT ist $f_S$-periodisch
@@ -134,8 +144,14 @@ $N-1$.
 Geschwindigkeitsvergleich FFT-DFT:
 \[ speedup\_factor_{FFT} = \frac{8N-2}{5\cdot \log_2N} \approx 1.5 	
 	\frac{N}{\log_2N} \]
-Dabei ist $N = 2^L$ mit einem ganzzahligen Wert für $L$.
-
+Dabei ist $N = 2^L$ mit einem ganzzahligen Wert für $L$.\\
+\\
+DFT
+\[ \left[N^2\right]_\textrm{cpl.Mul.} + \left[N^2-N\right]_\textrm{cpl.Add.} \]
+FFT
+\[ \left[\frac{N}{2}\cdot\log_2N\right]_\textrm{cpl.Mul.} + 
+	\left[N\cdot\log_2N\right]_\textrm{cpl.Add.} \]
+	
 %===============================================================================
 \subsection{Twiddle Faktoren}
 Definition:
@@ -167,7 +183,7 @@ wobei
 \begin{center}
 	\includegraphics[scale=.7]{./images/fft}
 \end{center}
-
+Benötigter Speicher der FFT bei in-place: $2N$ (+$N/2$ für Twiddle Faktoren)
 Index bit-reversed in Matlab: \verb|bitrevorder|
 
 %===============================================================================
