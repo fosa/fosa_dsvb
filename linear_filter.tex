@@ -45,7 +45,6 @@ mit der Autokorrelation des Filter Eingangs:
 und der Kreuzkorrelation
 \[ \gamma_{sy} = E \{ s[n] \cdot y^*[n-m] \} \]
 ~\\
-\\
 Winer-Hopf Gleichung
 \[ \textbf{R}_{yy} = \begin{bmatrix}
 	\gamma_{yy}[0]	& \gamma_{yy}[-1]	& \ldots	& \gamma_{yy}[-M]\\
@@ -58,8 +57,8 @@ Winer-Hopf Gleichung
 	\gamma_{sy}[D+1]\\
 	\vdots\\
 	\gamma_{sy}[D+M]
-\end{bmatrix} \]
-\[ \tilde{\textbf{w}} = \begin{bmatrix}
+\end{bmatrix} \qquad
+  \tilde{\textbf{w}} = \begin{bmatrix}
 	\tilde{w}_0\\
 	\tilde{w}_1\\
 	\vdots\\
@@ -67,5 +66,3 @@ Winer-Hopf Gleichung
 \end{bmatrix} \]
 Die optimalen Filterkoeffizienten sind gegeben Durch:
 \[ \tilde{\textbf{w}} = \textbf{R}_{yy}^{-1}\textbf{r}_{sy} \]
-
-%===============================================================================
