@@ -164,16 +164,16 @@ Frequenzgang:
 \[ H_l(\Omega) = H(\Omega-2\pi l/M) \]
 Impulsantwort:\\
 \begin{minipage}{.5\textwidth}
-	\[ h[k] = \begin{matrix}
+	\[ h[k] = \left\lbrace\begin{matrix}
 		1	& \textrm{if } k \in \{0,1,\ldots,M-1\}\\
 		0	& \textrm{otherwise}
-	\end{matrix} \]
+	\end{matrix}\right. \]
 \end{minipage}
 \begin{minipage}{.5\textwidth}
-	\[ g[k] = \begin{matrix}
+	\[ g[k] = \left\lbrace\begin{matrix}
 		\frac{1}{M}	& \textrm{if } k \in \{0,1,\ldots,M-1\}\\
 		0	& \textrm{otherwise}
-	\end{matrix} \]
+	\end{matrix}\right. \]
 \end{minipage}
 Mit polyphase
 \[ H_l(z) = \sum_{i=0}^{M-1}\e^{\im 2\pi li/M} \cdot z^{-i} P_i(z^M) 

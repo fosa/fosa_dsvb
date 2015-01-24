@@ -1,0 +1,63 @@
+% coding:utf-8
+
+%----------------------------------------
+%FOSADSVB, a LaTeX-Code for a summary of digital signal processing
+%Copyright (C) 2015, Mario Felder & Michi Fallegger
+
+%This program is free software; you can redistribute it and/or
+%modify it under the terms of the GNU General Public License
+%as published by the Free Software Foundation; either version 2
+%of the License, or (at your option) any later version.
+
+%This program is distributed in the hope that it will be useful,
+%but WITHOUT ANY WARRANTY; without even the implied warranty of
+%MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%GNU General Public License for more details.
+%----------------------------------------
+
+\chapter{Zufallssignale}
+\section{Autokorrelation und Spektrum}
+Mittelwert eines Zufallssignals $x[n]$ ist
+\[ m_x = E\{x[n]\} \]
+Autokorrelation
+\[ \gamma_{xx}[m] = E\{x^*[n] \cdot x[n+m]\} \]
+Wobei $\gamma_{xx}[0]$ die Leistung $P_x$ repräsentiert.\\\\
+Für echte Zufallssignale gilt
+\[ \gamma_{xx}[m] = \gamma_{xx}^*[-m] \]
+Signale, welche den Mittelwert nicht bei Null haben, werden mit der Autokovarianz
+charakterisiert
+\[ c_{xx} = E\{ (x[n]-m_x)^*\cdot(x[n+m]-m_x) \} \]
+\[ y_{xx} = c_{xx}[m] + _x^2 \]
+Die Autokovarianz bei $m=0$ repräsentiert die Varianz
+\[ E\{|x[n]-m_x|^2\} \]
+Spektrum durch die DTFT im Intervall $[n_1,n_2]$
+\[ X_{[n_1,n_2]}(\Omega) = \sum_{n=n_1}^{n_2}x[n]\cdot\e^{\im\Omega n} \]
+Leistungsdichte Spektrum (power density spectrum)
+\[ \Gamma_{xx}(\Omega) = \sum_{m=-\infty}^{\infty}\gamma_{xx}[m] \cdot
+	\e^{-\im\Omega m} \]
+~\\\\
+Weisses Rauschen hat die Autokorrelation
+\[ \gamma_{ww}[m] = \left\lbrace\begin{matrix}
+	\sigma_w^2	& \textrm{if } m = 0\\
+	0			& \textrm{if } m \neq 0
+\end{matrix}\right. \]
+Das Leistungsdichte Spektrum beim seissen Rauschen ist über $\Omega$ konstant.
+
+%===============================================================================
+\section{Spectral Shaping in LTI Systems}
+Mittelwert des Ausgangssignals $y[n]$:
+\[ m_y = H(0) \cdot m_x \]
+mit
+\[ H(\Omega) = \sum_{k=-\infty}^{\infty}h[k]\cdot\e^{\im\Omega k} \]
+Autokorrelation von $y[n]$
+\[ \gamma_{yy}[m] = h^*[-i]*\gamma_{xx}[m]*h[k] \]
+Frequenzbereich
+\[ \Gamma_{yy}(\Omega) = H^*(\Omega)\cdot\Gamma_{xx}(\Omega)\cdot H(\Omega) 
+	= |H(\Omega)|^2 \cdot \Gamma_{xx}(\Omega) \]
+	
+%===============================================================================
+\section{Lineare Modelle für Stochastische Prozesse}
+Weisses Rauschen
+\[ \Gamma_{ww}(z) = \sigma_w^2 \]
+Ausgang des LTI
+\[ \Gamma_{yy}(z) = \sigma_w^2 \cdot H(z) \cdot H(z^-1) \]
