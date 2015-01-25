@@ -36,6 +36,9 @@ wird um den Faktor $D$ gespreizt. Für einen idealen TP-Filter gilt:
 \[ Y(\Omega) = \frac{1}{D} V(\Omega/D)  \]
 Allgemein:
 \[ Y(\Omega) = \frac{1}{D} \sum_{d=0}^{D-1} V(\Omega/D-2\pi d/D) \]
+\begin{center}
+	\includegraphics[scale=.6]{./images/decimation_frequenz}
+\end{center}
 Als TP-Filter kann ein FIR Filter verwendet werden. Eine direkte Implementierung
 ist nicht effektiv, da $D-1$ vom Filter berechnete Werte vom Downsampler
 weggeworfen werden. Mit dem Downsampler vor dem Filter müssen weniger
@@ -70,6 +73,9 @@ ideale TP-Filter hat die Frequenzantwort:
 	\end{matrix} \right. \]
 \begin{center}
 	\includegraphics[scale=.7]{./images/interpolation}
+\end{center}
+\begin{center}
+	\includegraphics[scale=.7]{./images/interpolation_frequenz}
 \end{center}
 Ein FIR oder IIR Filter kann als TP-Filter verwendet werden. Eine direkte
 Implementierung ist ineffektiv, da der Filter auch auf die Null werte angewandt
@@ -145,6 +151,9 @@ Chrakteristik mit linearer Phasenverschiebung aufzeigen. Dies kann am besten
 mit einem symetrischen FIR Filter erreicht werden. 
 \begin{center}
 	\includegraphics[scale=.7]{./images/power_symetric}
+\end{center}
+\begin{center}
+	\includegraphics[scale=.7]{./images/quadrature_mirror_ex}
 \end{center}
 
 %===============================================================================

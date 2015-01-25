@@ -151,6 +151,8 @@ DFT
 FFT
 \[ \left[\frac{N}{2}\cdot\log_2N\right]_\textrm{cpl.Mul.} + 
 	\left[N\cdot\log_2N\right]_\textrm{cpl.Add.} \]
+Die Frequenzauflösung ist gegeben durch
+\[ \Delta f = \frac{f_s}{N} \]
 	
 %===============================================================================
 \subsection{Twiddle Faktoren}
@@ -203,7 +205,7 @@ nur für $n=N$.
 \end{center}
 Der Goertzel-Algorithmus gibt die DFT spectral componente bei der Frequenz
 \[ f_k = k\frac{f_S}{N} \]
-Mit dem PArseval Theorem kann der Leistungsgehalt $P_k$ eines realwertigen
+Mit dem Parseval Theorem kann der Leistungsgehalt $P_k$ eines realwertigen
 Signals $x[n]$ bei einer Frequenz von $f_k$ ermittelt werden:
 \[
 	P_k = 2\left| \frac{X[k]}{N} \right|^2
