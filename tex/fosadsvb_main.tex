@@ -3,6 +3,7 @@
 %----------------------------------------
 %FOSADSVB, a LaTeX-Code for a summary of digital signal processing
 %Copyright (C) 2015, Mario Felder & Michi Fallegger
+% Angepasst by Manu und Thomi, 2019
 
 %This program is free software; you can redistribute it and/or
 %modify it under the terms of the GNU General Public License
@@ -15,18 +16,13 @@
 %GNU General Public License for more details.
 %----------------------------------------
 
-\documentclass[a5paper,10pt,fleqn]{book}
+\documentclass[a4paper,table,openany,11pt]{book}
 
 \usepackage{layout}
 
-%\setboolean{ti}{true}        % Anleitung für TI-89
+\title{\Huge{Formelsammlung DSVB}}
 
-\title{Formelsammlung DSVB}
-% \ifti
-% \title{Formelsammlung DSVB \\ Mit Anleitung zu TI-89}
-% \fi
-
-\author{Mario Felder\\Michi Fallegger}
+\author{Mario Felder\\Michi Fallegger\\{}\\Manuel Ziegler\\Thomas Annen}
 \date{\today}
 
 %\catcode `\*=\active
@@ -34,7 +30,15 @@
 
 \begin{document}
 
+% Einstellen des Abstandes vor und nach Formeln im Text \[ <Formel> \]. Muss nach \begin{document} stehen...
+\setlength{\abovedisplayskip}{3pt}
+\setlength{\belowdisplayskip}{11pt}
+% Abstände vor und nach section & subsection minimieren
+\titlespacing*{\section}{0pt}{4.5ex plus 1ex minus .2ex}{1ex}
+\titlespacing*{\subsection}{0pt}{3.5ex plus 1ex minus .2ex}{1ex}
+
 \maketitle
+%\blankpage	% Für 2-seitigen Druck auf A4 (Erste Seite nur Titelblatt, zweite Seite leer)
 
 \tableofcontents
 \include{content}

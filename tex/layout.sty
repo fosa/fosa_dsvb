@@ -46,6 +46,8 @@
 \usepackage{array,arydshln}
 \usepackage{trfsigns}
 \usepackage{booktabs}
+\usepackage{float}
+\usepackage{titlesec}
 
 \usepackage{color}
 \usepackage{colortbl}
@@ -55,7 +57,8 @@
 \definecolor{green}{rgb}{0, 1, 0}
 \definecolor{blue}{rgb}{0, 0, 1}
 
-
+\usepackage{geometry}
+\geometry{left=5mm, right=5mm, top=13.6mm, bottom=13.6mm}
 
 %Gnuplot Paket einbinden
 \usepackage{tikz}
@@ -114,16 +117,16 @@
 \pagestyle{fancy} %eigener Seitenstil
 \fancyhf{} %alle Kopf- und Fusszeilenfelder bereinigen
 
-\addtolength{\textheight}{3.5cm}
-\addtolength{\voffset}{-1.5cm}
-\addtolength{\textwidth}{1cm}
-\addtolength{\evensidemargin}{-15mm}
-\addtolength{\oddsidemargin}{5mm}
+%\addtolength{\textheight}{3.5cm}
+%\addtolength{\voffset}{-1.5cm}
+%\addtolength{\textwidth}{1cm}
+%\addtolength{\evensidemargin}{-15mm}
+%\addtolength{\oddsidemargin}{5mm}
 
-\addtolength{\textheight}{\topmargin-\evensidemargin-\hoffset+\voffset}
-\setlength{\topmargin}{\evensidemargin+\hoffset-\voffset}
+%\addtolength{\textheight}{\topmargin-\evensidemargin-\hoffset+\voffset}
+%\setlength{\topmargin}{\evensidemargin+\hoffset-\voffset}
 
-\addtolength{\headwidth}{1cm}
+%\addtolength{\headwidth}{1cm}
 
 %\rhead{\setlength{\unitlength}{1mm}
 %\begin{picture}(-2,7)
@@ -132,12 +135,49 @@
 
 \fancyhead[L]{} %Kopfzeile links
 \fancyhead[C]{} %zentrierte Kopfzeile
-\fancyhead[RO]{\rightmark}
-\fancyhead[LE]{\leftmark}
+%\fancyhead[RO]{\rightmark}
 %\fancyhead[R]{\includegraphics[scale=0.25]{hslu_logo2.PNG}}
 \renewcommand{\headrulewidth}{0.4pt} %obere Trennlinie
-\fancyfoot[L]{}
+\fancyhead[L]{\leftmark}
+\fancyhead[R]{\rightmark}
 \fancyfoot[C]{}
-\fancyfoot[RO]{\thepage}
-\fancyfoot[LE]{\thepage}
+\fancyfoot[C]{\thepage}
 \renewcommand{\footrulewidth}{0.4pt} %untere Trennlinie
+
+% Vertikaler Abstand bis zum Kapitel x bei \chapter reduzieren
+\def\@makechapterhead#1{%
+  %%%%\vspace*{50\p@}% %%% removed!
+  {\parindent \z@ \raggedright \normalfont
+    \ifnum \c@secnumdepth >\m@ne
+        \huge\bfseries \@chapapp\space \thechapter
+        \par\nobreak
+        \vskip 20\p@
+    \fi
+    \interlinepenalty\@M
+    \Huge \bfseries #1\par\nobreak
+    \vskip 40\p@
+  }}
+\def\@makeschapterhead#1{%
+  %%%%%\vspace*{50\p@}% %%% removed!
+  {\parindent \z@ \raggedright
+    \normalfont
+    \interlinepenalty\@M
+    \Huge \bfseries  #1\par\nobreak
+    \vskip 40\p@
+  }}
+\makeatother
+
+% Leere Seite durch \blankpage zulassen
+\def\blankpage{%
+      \clearpage%
+      \thispagestyle{empty}%
+      \addtocounter{page}{-1}%
+      \null%
+      \clearpage}
+      
+% Optionen für \begin{itemsize}
+\usepackage{enumitem}
+
+% set vertical distance for tables
+\renewcommand{\arraystretch}{1.2}
+
