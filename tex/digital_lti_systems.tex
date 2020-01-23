@@ -1,0 +1,117 @@
+% coding:utf-8
+
+%----------------------------------------
+%FOSADSVB, a LaTeX-Code for a summary of digital signal processing
+%Copyright (C) 2019, Thomas Annen
+
+%This program is free software; you can redistribute it and/or
+%modify it under the terms of the GNU General Public License
+%as published by the Free Software Foundation; either version 2
+%of the License, or (at your option) any later version.
+
+%This program is distributed in the hope that it will be useful,
+%but WITHOUT ANY WARRANTY; without even the implied warranty of
+%MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%GNU General Public License for more details.
+%----------------------------------------
+\chapter{Digitale LTI Systeme}
+
+%===============================================================================
+\section{Definition}
+\textbf{Linearität:}
+\[ x[n] = k_1 \cdot x_1[n] + k_2 \cdot x_2[n] \quad \Longrightarrow \quad y[n] = k_1 \cdot y_1[n] + k_2 \cdot y_2[n] \]
+\textbf{Zeitinvarianz:}
+\[ x[n] \rightarrow y[n] \quad \Longrightarrow \quad x[n-d] \rightarrow y[n-d] \]
+\textbf{Erlaubte Operationen:}
+\begin{itemize}[noitemsep,topsep=3pt]
+	\item Multiplikation eines Signals mit einer Konstanten.
+	\item Addition von zwei Signalen.
+	\item Zeitverzögerung eines Signals um $k \cdot T_S$.
+\end{itemize}
+
+%===============================================================================
+\section{Beschreibungsarten von LTI-Systemen}
+Je nach Anwendung eignen sich unterschiedliche Beschreibungsarten, zwischen denen 
+transformiert werden kann. 
+\begin{table}[H]
+\centering
+\begin{tabular}{ccc}\hline
+\multicolumn{1}{l}{} & \textbf{Impuls- oder Sprungantwort} ($h[n]$, $u[n]$) & Systemidentifikation, Messung \\
+Zeitbereich & \textbf{Differenzengleichung} & Systemimplementation (Algorithmus) \\
+ & \textbf{Signalflussdiagramm} & Systemimplementation (Architektur) \\ \hline
+ & \textbf{Übertragungsfunktion} & Gekoppelte Analyse \& Implementation \\
+Frequenzbereich & \textbf{Pol- Nullstellenplan} & Intuitives Analyse- \& Designvorgehen \\
+\multicolumn{1}{l}{} & \textbf{Frequenzantwort} & Systemidentifikation, Analyse \& Design \\\hline 
+\end{tabular}\vspace{-3mm}
+\end{table}
+\noindent \textbf{Nützliche Matlab-Befehle:}\\
+\begin{tabular}{ll}
+Definition: Impulsantwort mit $h[n] = \{1, -1\}$ & \verb|h = [1 -1];| \\
+Plot: Impulsantwort mit Amplitude 1, Länge 10 & \verb|impz(h, 1, 10);| \\
+Plot: Pol-Nullstellenplan & \verb|zplane(h,1);| \\
+Plot: Frequenzgang (Gain \& Phase) & \verb|freqz(h,1,100); % freqz(b,a,N), b = Zähler, a = Nenner|
+\end{tabular}\vspace{-3mm}
+
+%===============================================================================
+\section{Systembeschreibung im Zeitbereich}
+\subsection{Impulsantwort / Faltung}
+Das Ausgangssignal $y[n]$ kann durch Faltung des Eingangssignals $x[n]$ mit der Impulsantwort $h[n]$
+ermittelt werden. 
+\[ y[n] = \sum_{i=-\infty}^{\infty} x[i] \cdot h[n-i] = x[n] * h[n] \]
+\subsection{Differenzengleichung}
+Das $max(N,M)$ wird als \emph{Ordnung} des Systems bezeichnet. Falls $M \geq 1$ ist das System rekursiv, 
+vergangene Ausgangswerte werden also in den aktuellen Ausgangswert miteinbezogen. $a_k$ \& 
+$b_k$ beeinflussen das Systemverhalten.
+\[y[n] = \sum_{k=0}^{N}b_k \cdot x[n-k]-\sum_{k=0}^{M} a_k \cdot y[n-k]\]
+\subsection{Signalflussdiagramm}
+Es existieren vier Grundlegende Varianten, welche jeweils Vor- und Nachteile für die 
+praktische Implementation mit sich bringen. Im Kapitel "'Digitales Filterdesign"' sind
+die vier Diagramme abgebildet. 
+
+%===============================================================================
+\section{Systembeschreibung im Frequenzbereich}
+\subsection{Übertragungsfunktion}
+Durch z-Transformation der Differenzengleichung ergibt sich:
+\[y[n] = \sum_{k=0}^{N}b_k \cdot x[n-k]-\sum_{k=0}^{M} a_k \cdot y[n-k] \quad \laplace 
+\quad Y(z) = \sum_{k=0}^{N}b_k z^{-k} X(z)-\sum_{k=0}^{M} a_k z^{-k} Y(z) \]
+Durch Umstellen und Normieren von $a_0$ auf 1 erhält man: 
+\[ H(z) = \frac{Y(z)}{X(z)} =
+\frac{b_0+b_1 \cdot z^{-1} + b_2 \cdot z^{-2}+\ldots+b_N \cdot z^{-N}}
+	{1+a_1 \cdot z^{-1} + a_2 \cdot z^{-2}+\ldots+a_M \cdot z^{-M}} \]
+\subsection{Pol- Nullstellenplan}
+Durch Faktorisieren der obigen Übertragungsfunktion $H(z)$ ergibt sich die folgende Darstellung:
+\[  H(z) =  K_0 \cdot \frac{(z-z_1)(z-z_2)...(z-z_N)}
+								{(z-p_1)(z-p_2)...(z-p_M)}
+								\cdot z^{M-N} \]
+\begin{itemize}[noitemsep,topsep=3pt]
+	\item Für $N>M$ gibt es $N-M$ zusätzliche Polstellen bei $z=0$.
+	\item Für $M>N$ gibt es $M-N$ zusätzliche Nullstellen bei $z=0$.
+	\item Für kausale Systeme gilt, dass das System stabil ist, wenn: $\big| p_i \big| < 1,\  i =1,...,M$.
+\end{itemize}					
+\subsection{Frequenzgang}
+Beschreibt das Systemverhalten als Funktion der Frequenz des Eingangssignals (frequency sweep). Es gilt: 
+\[ h[n] \quad \laplace \quad H(\Omega) \]
+In der Praxis wird die DTFT durch die DFT approximiert und als Polarkoordinaten dargestellt: 
+\[ H(\Omega) = \big|H(\Omega) \big| \cdot \e^{j\varphi(H(\Omega))} \]	
+\textbf{Amplitudengang:} Beschreibt die Verstärkung, die ein Signal der Frequenz $\Omega$ ausgesetzt ist:
+\[ \big|H(\Omega)\big|_{dB} = 20 \cdot log_{10}(\big|H(\Omega)\big|) \]	
+\textbf{Phasengang:} Beschreibt die Phasenverschiebung, der ein Signal der Frequenz $\Omega$ ausgesetzt ist:
+\[ \varphi(Y(\Omega)) = \varphi(X(\Omega)) + \varphi(H(\Omega))\]	
+\subsection{Beziehung zwischen Frequenzgang \& Übertragungsfunktion}
+DTFT und $z$-Transformation sind mit folgender Beziehung verbunden:
+\[ z = r \cdot e^{j\Omega} \]
+Der Frequenzgang lässt sich also durch Betrachtung von $H(z)$ entlang des Einheitskreises erhalten.
+\[ H(\Omega) = H(z)\big|_{z=e^{j\Omega}} \]	
+\\
+Durch Substitution von $z=e^{j\Omega}$ lässt sich  die Verstärkung \& Phase bei einer 
+beliebigen Frequenz $\Omega$ berechnen.\\ 
+\textbf{Amplitudengang:}
+\[ \big| H(z)\big| =  |K| \cdot \frac{|(z-z_1)||(z-z_2)|..|(z-z_N)|}
+								{|(z-p_1)||(z-p_2)|..|(z-p_M)|}
+								\cdot |z|^{M-N} \]
+\textbf{Phasengang:}
+\[ \varphi(H(z)) = \sum_{k=1}^{N} \varphi(z-z_k) 
+								-\sum_{k=1}^{M} \varphi(z-p_k)
+								+\sum_{k=N+1}^{M} \varphi(z)  \]
+~\\						
+\emph{Trick 1 \& 2 auf der Folgeseite beachten, wenn Verstärkungen bei bestimmtem $\Omega$ berechnet werden müssen!}
